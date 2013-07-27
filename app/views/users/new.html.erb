@@ -3,47 +3,48 @@
 
   <%= form_for @user, url: user_path, html: {class: "form-horizontal"} do |form| %>
 
-  <fieldset>
-    <div class="control-group <%= 'error' if @user.errors[:name].present? %>">
-      <%= form.label :name, class: "control-label" %>
-      <div class="controls">
-        <%= form.text_field :name %>
-        <span class="help-inline"><%= @user.errors[:name].first %></span>
+    <fieldset>
+
+      <div class="form-group <%= 'has-error' if @user.errors[:name].present? %>">
+        <%= form.label :name, class: "control-label col-lg-2" %>
+        <div class="col-lg-10">
+          <%= form.text_field :name, class: "form-control" %>
+          <span class="help-block"><%= @user.errors[:name].first %></span>
+        </div>
+      </div>
+
+      <div class="form-group <%= 'has-error' if @user.errors[:email].present? %>">
+        <%= form.label :email, class: "control-label col-lg-2" %>
+        <div class="col-lg-10">
+          <%= form.text_field :email, class: "form-control" %>
+          <span class="help-block"><%= @user.errors[:email].first %></span>
+        </div>
+      </div>
+
+      <div class="form-group <%= 'has-error' if @user.errors[:password].present? %>">
+        <%= form.label :password, class: "control-label col-lg-2" %>
+        <div class="col-lg-10">
+          <%= form.password_field :password, class: "form-control" %>
+          <span class="help-block"><%= @user.errors[:password].first %></span>
+        </div>
+      </div>
+
+      <div class="form-group <%= 'has-error' if @user.errors[:password_confirmation].present? %>">
+        <%= form.label :password_confirmation, class: "control-label col-lg-2" %>
+        <div class="col-lg-10">
+          <%= form.password_field :password_confirmation, class: "form-control" %>
+          <span class="help-block"><%= @user.errors[:password_confirmation].first %></span>
+        </div>
+      </div>
+
+    </fieldset>
+
+    <div class="form-group">
+      <div class="col-lg-10 col-offset-2">
+        <%= form.submit class: "btn btn-default" %>
+        <%= link_to "Cancel", root_path, class: "btn btn-link" %>
       </div>
     </div>
-
-    <div class="control-group <%= 'error' if @user.errors[:email].present? %>">
-      <%= form.label :email, class: "control-label" %>
-      <div class="controls">
-        <%= form.text_field :email %>
-        <span class="help-inline"><%= @user.errors[:email].first %></span>
-      </div>
-    </div>
-
-    <div class="control-group <%= 'error' if @user.errors[:password].present? %>">
-      <%= form.label :password, class: "control-label" %>
-      <div class="controls">
-        <%= form.password_field :password %>
-        <span class="help-inline"><%= @user.errors[:password].first %></span>
-      </div>
-    </div>
-
-    <div class="control-group <%= 'error' if @user.errors[:password_confirmation].present? %>">
-      <%= form.label :password_confirmation, class: "control-label" %>
-      <div class="controls">
-        <%= form.password_field :password_confirmation %>
-        <span class="help-inline"><%= @user.errors[:password_confirmation].first %></span>
-      </div>
-    </div>
-
-  </fieldset>
-
-  <div class="control-group">
-    <div class="controls">
-      <%= form.submit class: "btn btn-primary" %>
-      <%= link_to "Cancel", root_path, class: "btn" %>
-    </div>
-  </div>
 
   <% end %>
 </div>

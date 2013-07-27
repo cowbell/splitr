@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Splitr</title>
 <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 <%= csrf_meta_tags %>
 
 </head>
@@ -12,22 +14,31 @@
 
 <div class="wrap">
 
-<%= nav_bar fixed: "top", brand: "Splitr" do %>
-  <% menu_group pull: "right" do %>
-    <%= menu_item "Home", root_path %>
-    <%= menu_item "Register", new_user_path %>
-  <% end %>
-<% end %>
-
-<div class="spacer"></div>
-
-<div class="container">
-  <%= bootstrap_flash %>
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <%= link_to "Splitr", root_path, class: "navbar-brand" %>
+    <ul class="nav navbar-nav">
+      <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "Home", root_path %></li>
+      <li class="<%= 'active' if current_page?(new_user_path) %>"><%= link_to "Register", new_user_path %></li>
+    </ul>
+  </div>
 </div>
+
+<% if flash.present? %>
+  <div class="container">
+    <% if flash[:notice].present? %>
+      <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 
 <%= yield %>
 
 <div class="push"></div>
+
 </div>
 
 <div class="footer">
@@ -35,6 +46,8 @@
     <p class="muted">&copy; 2013 Cowbell Labs</p>
   </div>
 </div>
+
+<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 
 </body>
 </html>
