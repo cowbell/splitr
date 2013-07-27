@@ -1,0 +1,11 @@
+source "https://rubygems.org"
+
+gem "bcrypt-ruby"
+gem "coffee-rails"
+gem "jquery-rails"
+gem "pg"
+gem "rails", "4.0.0"
+gem "sass-rails"
+gem "sqlite3"
+gem "turbolinks"
+gem "uglifier"

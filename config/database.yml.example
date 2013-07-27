@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  database: splitr_development
+
+test:
+  adapter: postgresql
+  database: splitr_test
+
+production:
+  adapter: postgresql
+  database: splitr_production

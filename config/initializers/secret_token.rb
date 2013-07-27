@@ -1,0 +1,1 @@
+Splitr::Application.config.secret_key_base = "e1d49f09aba9bc7a7ab7dbefbf3a94cd9f4444e36e50ab7a45bb69bfbcfa5a0bc63e5d3148b9c5364d4f831c4f6cac54964e5c9ec4d344a6cbf39645bbb13dbd"
