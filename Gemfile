@@ -4,6 +4,7 @@ gem "rails", "4.0.0"
 
 gem "bcrypt-ruby"
 gem "coffee-rails"
+gem "foreman", require: false
 gem "jquery-rails"
 gem "less-rails"
 gem "pg"
