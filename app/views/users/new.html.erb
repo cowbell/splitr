@@ -1,0 +1,49 @@
+<div class="container">
+  <h2>New user</h2>
+
+  <%= form_for @user, url: user_path, html: {class: "form-horizontal"} do |form| %>
+
+  <fieldset>
+    <div class="control-group <%= 'error' if @user.errors[:name].present? %>">
+      <%= form.label :name, class: "control-label" %>
+      <div class="controls">
+        <%= form.text_field :name %>
+        <span class="help-inline"><%= @user.errors[:name].first %></span>
+      </div>
+    </div>
+
+    <div class="control-group <%= 'error' if @user.errors[:email].present? %>">
+      <%= form.label :email, class: "control-label" %>
+      <div class="controls">
+        <%= form.text_field :email %>
+        <span class="help-inline"><%= @user.errors[:email].first %></span>
+      </div>
+    </div>
+
+    <div class="control-group <%= 'error' if @user.errors[:password].present? %>">
+      <%= form.label :password, class: "control-label" %>
+      <div class="controls">
+        <%= form.password_field :password %>
+        <span class="help-inline"><%= @user.errors[:password].first %></span>
+      </div>
+    </div>
+
+    <div class="control-group <%= 'error' if @user.errors[:password_confirmation].present? %>">
+      <%= form.label :password_confirmation, class: "control-label" %>
+      <div class="controls">
+        <%= form.password_field :password_confirmation %>
+        <span class="help-inline"><%= @user.errors[:password_confirmation].first %></span>
+      </div>
+    </div>
+
+  </fieldset>
+
+  <div class="control-group">
+    <div class="controls">
+      <%= form.submit class: "btn btn-primary" %>
+      <%= link_to "Cancel", root_path, class: "btn" %>
+    </div>
+  </div>
+
+  <% end %>
+</div>

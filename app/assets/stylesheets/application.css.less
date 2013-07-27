@@ -8,3 +8,30 @@
 @fontAwesomeSvgPath: asset-url("fontawesome-webfont.svg#fontawesomeregular");
 
 @import "fontawesome/font-awesome";
+
+html,
+body {
+  height: 100%;
+}
+
+.wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -50px;
+}
+
+.push,
+.footer {
+  height: 50px;
+}
+
+.spacer {
+  height: 50px;
+}
+
+@media (max-width: 979px) {
+  .spacer {
+    height: 0px;
+  }
+}

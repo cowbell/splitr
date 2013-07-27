@@ -10,7 +10,31 @@
 </head>
 <body>
 
+<div class="wrap">
+
+<%= nav_bar fixed: "top", brand: "Splitr" do %>
+  <% menu_group pull: "right" do %>
+    <%= menu_item "Home", root_path %>
+    <%= menu_item "Register", new_user_path %>
+  <% end %>
+<% end %>
+
+<div class="spacer"></div>
+
+<div class="container">
+  <%= bootstrap_flash %>
+</div>
+
 <%= yield %>
+
+<div class="push"></div>
+</div>
+
+<div class="footer">
+  <div class="container">
+    <p class="muted">&copy; 2013 Cowbell Labs</p>
+  </div>
+</div>
 
 </body>
 </html>
