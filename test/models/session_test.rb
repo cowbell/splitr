@@ -29,7 +29,7 @@ class SessionTest < ActiveSupport::TestCase
   end
 
   test "is invalid with incorrect password" do
-    @session.password = "terces"
+    @session.password = "wrong-password"
     assert @session.invalid?
     assert @session.errors[:password].present?
   end

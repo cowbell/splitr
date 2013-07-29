@@ -1,0 +1,17 @@
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <%= link_to "Splitr", root_path, class: "navbar-brand" %>
+    <ul class="nav navbar-nav">
+      <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "Home", root_path %></li>
+      <% if can? :create, User %>
+        <li class="<%= 'active' if current_page?(new_user_path) %>"><%= link_to "Register", new_user_path %></li>
+      <% end %>
+      <% if can? :create, Session %>
+        <li class="<%= 'active' if current_page?(new_session_path) %>"><%= link_to "Log in", new_session_path %></li>
+      <% end %>
+      <% if can? :destroy, Session %>
+        <li class="<%= 'active' if current_page?(session_path) %>"><%= link_to "Log out", session_path, method: :delete %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

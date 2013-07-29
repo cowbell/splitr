@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "rails", "4.0.0"
 
 gem "bcrypt-ruby", "~> 3.0.0"
+gem "cancan"
 gem "coffee-rails"
 gem "foreman", require: false
 gem "jquery-rails"

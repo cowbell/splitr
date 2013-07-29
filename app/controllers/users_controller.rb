@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
   def new
     @user = User.new
+    authorize! :create, @user
   end
 
   def create
     @user = User.new
+    authorize! :create, @user
     if @user.update(user_params)
       session[:user_id] = @user.id
       redirect_to root_url, notice: "Thank you for registering in Splitr."
