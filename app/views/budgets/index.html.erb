@@ -12,9 +12,12 @@
       <tr>
         <td><%= budget.name %></td>
         <td><%= budget.members.count %></td>
-        <td>$</td>
+        <td>&euro;</td>
         <td><button type="button" class="btn btn-primary btn-small">Show</button></td>
       </tr>
     <% end %>
   </table>
+  <% if can? :create, Budget %>
+    <%= link_to "Add", new_budget_path, class: "btn btn-primary" %>
+  <% end %>
 </div>

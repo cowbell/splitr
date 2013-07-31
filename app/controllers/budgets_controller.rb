@@ -13,7 +13,7 @@ class BudgetsController < ApplicationController
     @budget = Budget.new(budget_params)
     authorize! :create, @budget
     if BudgetCreator.create(@budget, current_user)
-      redirect_to root_path, notice: "Budget has been successfully created."
+      redirect_to budgets_path, notice: "Budget has been successfully created."
     else
       render :new
     end
