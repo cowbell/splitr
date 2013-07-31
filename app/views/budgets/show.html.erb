@@ -1,0 +1,19 @@
+<div class="container">
+  <h2><strong><%= @budget.name %></strong> members</h2>
+
+  <table class="table table-hover">
+    <tr>
+      <th>Name</th>
+    </tr>
+    <% @budget.members.each do |member| %>
+      <tr>
+        <td><%= member.name %></td>
+      </tr>
+    <% end %>
+    <% if can? :manage, @budget %>
+      <tr>
+        <td><%= link_to "Add", new_budget_member_path(@budget), class: "btn btn-primary btn-small" %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
