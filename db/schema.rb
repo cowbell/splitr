@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 20130731083547) do
   end
 
   add_index "members", ["budget_id"], name: "index_members_on_budget_id", using: :btree
+  add_index "members", ["name", "budget_id"], name: "index_members_on_name_and_budget_id", unique: true, using: :btree
+  add_index "members", ["user_id", "budget_id"], name: "index_members_on_user_id_and_budget_id", unique: true, using: :btree
   add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
 
   create_table "users", force: true do |t|

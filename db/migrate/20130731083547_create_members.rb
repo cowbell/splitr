@@ -7,5 +7,8 @@ class CreateMembers < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :members, [:user_id, :budget_id], unique: true
+    add_index :members, [:name, :budget_id], unique: true
   end
 end
