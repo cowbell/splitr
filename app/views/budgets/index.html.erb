@@ -1,0 +1,23 @@
+<div class="container">
+  <h2>Your Budgets</h2>
+
+  <table class="table table-hover">
+    <tr>
+      <th>Name</th>
+      <th>Members</th>
+      <th>Total Amount</th>
+      <th></th>
+    </tr>
+    <% @budgets.each do |budget| %>
+      <tr>
+        <td><%= budget.name %></td>
+        <td><%= budget.members.count %></td>
+        <td>&euro;</td>
+        <td><button type="button" class="btn btn-primary btn-small">Show</button></td>
+      </tr>
+    <% end %>
+  </table>
+  <% if can? :create, Budget %>
+    <%= link_to "Add", new_budget_path, class: "btn btn-primary" %>
+  <% end %>
+</div>
