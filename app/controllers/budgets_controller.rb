@@ -19,6 +19,11 @@ class BudgetsController < ApplicationController
     end
   end
 
+  def show
+    authorize! :read, Budget
+    @budget = current_user.budgets.find(params[:id])
+  end
+
   private
 
   def budget_params

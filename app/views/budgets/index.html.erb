@@ -13,7 +13,7 @@
         <td><%= budget.name %></td>
         <td><%= budget.members.count %></td>
         <td>&euro;</td>
-        <td><button type="button" class="btn btn-primary btn-small">Show</button></td>
+        <td><%= link_to "Show", budget_path(budget), class: "btn btn-primary btn-small"%></td>
       </tr>
     <% end %>
   </table>
