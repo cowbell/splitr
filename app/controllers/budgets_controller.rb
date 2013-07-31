@@ -1,16 +1,21 @@
 class BudgetsController < ApplicationController
+  def index
+    authorize! :read, Budget
+    @budgets = current_user.budgets
+  end
+
   def new
     @budget = Budget.new
     authorize! :create, @budget
   end
 
   def create
-    @budget = Budget.new
+    @budget = Budget.new(budget_params)
     authorize! :create, @budget
-    if @budget.update(budget_params)
-      redirect_to root_url, notice: "Budget has been successfully created."
+    if BudgetCreator.create(@budget, current_user)
+      redirect_to budgets_path, notice: "Budget has been successfully created."
     else
-      render "new"
+      render :new
     end
   end
 

@@ -17,8 +17,8 @@
         <% if can? :create, Session %>
           <li class="<%= 'active' if current_page?(new_session_path) %>"><%= link_to "Log in", new_session_path %></li>
         <% end %>
-        <% if can? :create, Budget %>
-          <li class="<%= 'active' if current_page?(new_budget_path) %>"><%= link_to "Create Budget", new_budget_path %></li>
+        <% if can? :read, Budget %>
+          <li class="<%= 'active' if current_page?(budgets_path) %>"><%= link_to "Budgets", budgets_path %></li>
         <% end %>
         <% if can? :destroy, Session %>
           <li class="<%= 'active' if current_page?(session_path) %>"><%= link_to "Log out", session_path, method: :delete %></li>
