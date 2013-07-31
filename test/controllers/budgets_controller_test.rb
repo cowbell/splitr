@@ -22,4 +22,12 @@ class BudgetsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert Budget.find_by(name: budget_attributes[:name]).present?
   end
+
+  test "create creates budget member with logged in user" do
+    user = create(:user, name: "John Doe")
+    session[:user_id] = user.id
+    post :create, budget: attributes_for(:budget)
+
+    assert Member.where(user_id: user.id, name: "John Doe").exists?
+  end
 end

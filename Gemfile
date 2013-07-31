@@ -16,3 +16,7 @@ gem "uglifier"
 group :test do
   gem "factory_girl_rails"
 end
+
+group :development, :test do
+  gem "debugger"
+end
