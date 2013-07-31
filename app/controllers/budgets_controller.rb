@@ -1,4 +1,9 @@
 class BudgetsController < ApplicationController
+  def index
+    authorize! :read, Budget
+    @budgets = current_user.budgets
+  end
+
   def new
     @budget = Budget.new
     authorize! :create, @budget
