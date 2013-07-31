@@ -6,7 +6,7 @@ class Ability
       can :create, Session
       can :create, User
     else
-      can :create, Budget
+      can :manage, Budget
       can :destroy, Session
     end
   end
