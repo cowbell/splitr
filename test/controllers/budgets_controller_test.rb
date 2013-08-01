@@ -2,7 +2,7 @@ require "test_helper"
 
 class BudgetsControllerTest < ActionController::TestCase
   # index
-  test "index raises exception when no user logged in" do
+  test "index raises exception when no logged in user" do
     assert_raises(CanCan::AccessDenied) { get :index }
   end
 
@@ -32,7 +32,7 @@ class BudgetsControllerTest < ActionController::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { get :show, id: budget.id }
   end
 
-  test "show renders template when user logged in and belongs to budget" do
+  test "show renders template when logged in user belongs to budget" do
     user = create(:user)
     budget = create(:budget)
     create(:member, budget: budget, user: user)
@@ -43,7 +43,7 @@ class BudgetsControllerTest < ActionController::TestCase
   end
 
   # new
-  test "new raises exception when no user logged in" do
+  test "new raises exception when no logged in user" do
     assert_raises(CanCan::AccessDenied) { get :new }
   end
 
@@ -54,7 +54,7 @@ class BudgetsControllerTest < ActionController::TestCase
   end
 
   # create
-  test "create raises exception when no user logged in" do
+  test "create raises exception when no logged in user" do
     assert_raises(CanCan::AccessDenied) { post :create, budget: attributes_for(:budget) }
   end
 

@@ -6,17 +6,19 @@
         <th>Amount</th>
         <th>Description</th>
         <th>Participants</th>
+        <th>Date</th>
       </tr>
-      <% @budget.transactions.each do |transaction| %>
+      <% @budget.transactions.order(created_at: :desc).each do |transaction| %>
         <tr>
           <td><%= transaction.amount %></td>
           <td><%= transaction.description %></td>
           <td><%= transaction_participants(transaction) %></td>
+          <td><%= transaction.created_at.to_s(:short) %></td>
         </tr>
       <% end %>
       <% if can? :manage, @budget %>
         <tr>
-          <td colspan="3"><%= link_to "Add", new_budget_transaction_path(@budget), class: "btn btn-primary btn-small" %></td>
+          <td colspan="4"><%= link_to "Add", new_budget_transaction_path(@budget), class: "btn btn-primary btn-small" %></td>
         </tr>
       <% end %>
     </table>
@@ -28,7 +30,7 @@
       <tr>
         <th>Name</th>
       </tr>
-      <% @budget.members.each do |member| %>
+      <% @budget.members.order(:name).each do |member| %>
         <tr>
           <td><%= member.name %></td>
         </tr>

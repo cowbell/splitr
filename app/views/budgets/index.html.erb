@@ -9,7 +9,7 @@
         <th>Total Amount</th>
         <th></th>
       </tr>
-      <% @budgets.each do |budget| %>
+      <% @budgets.order(created_at: :desc).each do |budget| %>
         <tr>
           <td><%= budget.name %></td>
           <td><%= budget.members.count %></td>

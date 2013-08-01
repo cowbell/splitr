@@ -1,7 +1,7 @@
 require "test_helper"
 
 class SessionsControllerTest < ActionController::TestCase
-  test "new renders template when no user logged in" do
+  test "new renders template when no logged in user" do
     get :new
     assert_template "new"
   end
@@ -18,7 +18,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert session[:user_id].present?
   end
 
-  test "create raises exception when user logged in" do
+  test "create raises exception when no logged in user" do
     session[:user_id] = create(:user).id
     assert_raises(CanCan::AccessDenied) { post :create, session: {email: "user@example.com", password: "secret"} }
   end
@@ -30,7 +30,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert session[:user_id].blank?
   end
 
-  test "destroy raises exception when no user logged in" do
+  test "destroy raises exception when no logged in user" do
     assert_raises(CanCan::AccessDenied) { delete :destroy }
   end
 end

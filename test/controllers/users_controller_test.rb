@@ -1,7 +1,7 @@
 require "test_helper"
 
 class UsersControllerTest < ActionController::TestCase
-  test "new renders template when no user logged in" do
+  test "new renders template when no logged in user" do
     get :new
     assert_template "new"
   end

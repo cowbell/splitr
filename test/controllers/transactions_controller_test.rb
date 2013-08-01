@@ -6,11 +6,11 @@ class TransactionsControllerTest < ActionController::TestCase
   end
 
   # new
-  test "new raises exception when no user logged in" do
+  test "new raises exception when no logged in user" do
     assert_raises(CanCan::AccessDenied) { get :new, budget_id: @budget.id }
   end
 
-  test "new raises exception logged in user does not belong to budget" do
+  test "new raises exception when logged in user does not belong to budget" do
     user = create(:user)
     session[:user_id] = user.id
     assert_raises(ActiveRecord::RecordNotFound) do
@@ -18,7 +18,7 @@ class TransactionsControllerTest < ActionController::TestCase
     end
   end
 
-  test "new renders template when user logged in and belongs to budget" do
+  test "new renders template when logged in user belongs to budget" do
     user = create(:user)
     create(:member, budget: @budget, user: user)
     session[:user_id] = user.id
@@ -28,14 +28,14 @@ class TransactionsControllerTest < ActionController::TestCase
   end
 
   # create
-  test "create raises exception when no user logged in" do
+  test "create raises exception when no logged in user" do
     transaction_params = attributes_for(:transaction, budget: @budget)
     assert_raises(CanCan::AccessDenied) do
       post :create, budget_id: @budget.id, transaction: transaction_params
     end
   end
 
-  test "create raises exception logged in user does not belong to budget" do
+  test "create raises exception when logged in user does not belong to budget" do
     user = create(:user)
     session[:user_id] = user.id
     transaction_params = attributes_for(:transaction, budget: @budget)
@@ -44,7 +44,7 @@ class TransactionsControllerTest < ActionController::TestCase
     end
   end
 
-  test "create redirects to budget and adds transaction when user logged in and belongs to budget" do
+  test "create redirects to budget and adds transaction when logged in user belongs to budget" do
     user = create(:user)
     create(:member, budget: @budget, user: user)
     session[:user_id] = user.id
