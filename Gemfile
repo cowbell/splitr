@@ -4,12 +4,12 @@ ruby "2.0.0"
 
 gem "rails", "4.0.0"
 
+gem "pg"
 gem "bcrypt-ruby", "~> 3.0.0"
 gem "cancan"
+
 gem "coffee-rails"
-gem "foreman", require: false
 gem "jquery-rails"
-gem "pg"
 gem "turbolinks"
 gem "uglifier"
 
@@ -18,6 +18,10 @@ group :production do
   gem "unicorn", require: false
   gem "dalli"
   gem "memcachier"
+end
+
+group :development do
+  gem "foreman", require: false
 end
 
 group :test do
