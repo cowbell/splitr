@@ -1,6 +1,6 @@
 class Transaction < ActiveRecord::Base
   belongs_to :budget
-  has_many :participations, inverse_of: :transaction
+  has_many :participations, inverse_of: :transaction, dependent: :destroy
   has_many :participants, through: :participations, source: :member
 
   validates :budget,       presence: true
