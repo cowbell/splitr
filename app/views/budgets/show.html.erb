@@ -3,19 +3,22 @@
     <div class="panel-heading"><strong><%= @budget.name %></strong> transactions</div>
     <table class="table table-hover .table-condensed">
       <tr>
-        <th>Amount</th>
+        <th>Date</th>
         <th>Description</th>
         <th>Participants</th>
-        <th>Date</th>
+        <th class="text-right">Amount</th>
       </tr>
       <% @budget.transactions.order(created_at: :desc).each do |transaction| %>
         <tr>
-          <td><%= transaction.amount %></td>
+          <td><%= transaction.created_at.to_date.to_s(:db) %></td>
           <td><%= transaction.description %></td>
           <td><%= transaction_participants(transaction) %></td>
-          <td><%= transaction.created_at.to_s(:short) %></td>
+          <td class="text-right"><%= transaction.amount %></td>
         </tr>
       <% end %>
+      <tr>
+        <th colspan="4" class="text-right"><%= @budget.total %></th>
+      </tr>
       <% if can? :manage, @budget %>
         <tr>
           <td colspan="4"><%= link_to "Add", new_budget_transaction_path(@budget), class: "btn btn-primary btn-small" %></td>
