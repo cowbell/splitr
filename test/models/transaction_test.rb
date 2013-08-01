@@ -32,4 +32,10 @@ class TransactionTest < ActiveSupport::TestCase
     assert @transaction.invalid?
     assert @transaction.errors[:budget].one?
   end
+
+  test "is invalid without participants" do
+    @transaction.participants = []
+    assert @transaction.invalid?
+    assert @transaction.errors[:participants].one?
+  end
 end

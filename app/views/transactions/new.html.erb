@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <div class="form-group <%= 'has-error' if @transaction.errors[:participant_ids].present? %>">
+      <div class="form-group <%= 'has-error' if @transaction.errors[:participants].present? %>">
         <%= form.label :participants, class: "control-label col-lg-2" %>
         <div class="checkbox">
           <% @budget.members.each do |member| %>
@@ -31,6 +31,7 @@
             </label>
           <% end %>
         </div>
+        <span class="help-block col-lg-10 col-offset-2"><%= @transaction.errors[:participants].first %></span>
       </div>
 
     </fieldset>
