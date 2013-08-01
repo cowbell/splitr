@@ -7,4 +7,11 @@ class Budget < ActiveRecord::Base
   def total
     transactions.sum(:amount)
   end
+
+  def total_for_member(member_id)
+    member_transactions = transactions.joins(:participations).where(participations: {member_id: member_id})
+    member_transactions.reduce(0) do |sum, transaction|
+      sum += Rational(transaction.amount, transaction.participants.count)
+    end.to_f
+  end
 end
