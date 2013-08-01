@@ -11,7 +11,7 @@
         <tr>
           <td><%= transaction.amount %></td>
           <td><%= transaction.description %></td>
-          <td>...</td>
+          <td><%= transaction_participants(transaction) %></td>
         </tr>
       <% end %>
       <% if can? :manage, @budget %>

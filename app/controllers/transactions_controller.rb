@@ -21,6 +21,6 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    params.require(:transaction).permit(:description, :amount)
+    params.require(:transaction).permit(:description, :amount, participant_ids: [])
   end
 end

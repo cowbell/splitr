@@ -21,6 +21,18 @@
         </div>
       </div>
 
+      <div class="form-group <%= 'has-error' if @transaction.errors[:participant_ids].present? %>">
+        <%= form.label :participants, class: "control-label col-lg-2" %>
+        <div class="checkbox">
+          <% @budget.members.each do |member| %>
+            <label class="col-lg-10 col-offset-2">
+              <%= check_box_tag "transaction[participant_ids][]", member.id, @transaction.participant_ids.include?(member.id) %>
+              <%= member.name %>
+            </label>
+          <% end %>
+        </div>
+      </div>
+
     </fieldset>
 
     <div class="form-group">
