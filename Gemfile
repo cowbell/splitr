@@ -13,6 +13,13 @@ gem "pg"
 gem "turbolinks"
 gem "uglifier"
 
+group :production do
+  gem "rails_12factor" # Heroku
+  gem "unicorn", require: false
+  gem "dalli"
+  gem "memcachier"
+end
+
 group :test do
   gem "factory_girl_rails"
 end
