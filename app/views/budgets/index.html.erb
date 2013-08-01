@@ -1,23 +1,27 @@
 <div class="container">
-  <h2>Your Budgets</h2>
+  <div class="panel">
+    <div class="panel-heading">Your budgets</div>
 
-  <table class="table table-hover">
-    <tr>
-      <th>Name</th>
-      <th>Members</th>
-      <th>Total Amount</th>
-      <th></th>
-    </tr>
-    <% @budgets.each do |budget| %>
+    <table class="table table-hover table-condensed">
       <tr>
-        <td><%= budget.name %></td>
-        <td><%= budget.members.count %></td>
-        <td>&euro;</td>
-        <td><%= link_to "Show", budget_path(budget), class: "btn btn-primary btn-small"%></td>
+        <th>Name</th>
+        <th>Members</th>
+        <th>Total Amount</th>
+        <th></th>
       </tr>
-    <% end %>
-  </table>
-  <% if can? :create, Budget %>
-    <%= link_to "Add", new_budget_path, class: "btn btn-primary" %>
-  <% end %>
+      <% @budgets.order(created_at: :desc).each do |budget| %>
+        <tr>
+          <td><%= budget.name %></td>
+          <td><%= budget.members.count %></td>
+          <td>&euro;</td>
+          <td><%= link_to "Show", budget_path(budget), class: "btn btn-primary btn-small"%></td>
+        </tr>
+      <% end %>
+      <% if can? :create, Budget %>
+        <tr>
+          <td colspan="4"><%= link_to "Add", new_budget_path, class: "btn btn-primary btn-small" %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 </div>

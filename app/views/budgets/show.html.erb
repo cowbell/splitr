@@ -1,19 +1,45 @@
 <div class="container">
-  <h2><strong><%= @budget.name %></strong> members</h2>
+  <div class="panel">
+    <div class="panel-heading"><strong><%= @budget.name %></strong> transactions</div>
+    <table class="table table-hover .table-condensed">
+      <tr>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Participants</th>
+        <th>Date</th>
+      </tr>
+      <% @budget.transactions.order(created_at: :desc).each do |transaction| %>
+        <tr>
+          <td><%= transaction.amount %></td>
+          <td><%= transaction.description %></td>
+          <td><%= transaction_participants(transaction) %></td>
+          <td><%= transaction.created_at.to_s(:short) %></td>
+        </tr>
+      <% end %>
+      <% if can? :manage, @budget %>
+        <tr>
+          <td colspan="4"><%= link_to "Add", new_budget_transaction_path(@budget), class: "btn btn-primary btn-small" %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 
-  <table class="table table-hover">
-    <tr>
-      <th>Name</th>
-    </tr>
-    <% @budget.members.each do |member| %>
+  <div class="panel">
+    <div class="panel-heading"><strong><%= @budget.name %></strong> members</div>
+    <table class="table table-hover table-condensed">
       <tr>
-        <td><%= member.name %></td>
+        <th>Name</th>
       </tr>
-    <% end %>
-    <% if can? :manage, @budget %>
-      <tr>
-        <td><%= link_to "Add", new_budget_member_path(@budget), class: "btn btn-primary btn-small" %></td>
-      </tr>
-    <% end %>
-  </table>
+      <% @budget.members.order(:name).each do |member| %>
+        <tr>
+          <td><%= member.name %></td>
+        </tr>
+      <% end %>
+      <% if can? :manage, @budget %>
+        <tr>
+          <td><%= link_to "Add", new_budget_member_path(@budget), class: "btn btn-primary btn-small" %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 </div>

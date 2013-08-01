@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>New Transaction</h2>
+
+  <%= form_for [@budget, @transaction], html: {class: "form-horizontal"} do |form| %>
+
+    <fieldset>
+
+      <div class="form-group <%= 'has-error' if @transaction.errors[:amount].present? %>">
+        <%= form.label :amount, class: "control-label col-lg-2" %>
+        <div class="col-lg-10">
+          <%= form.number_field :amount, min: 0, class: "form-control" %>
+          <span class="help-block"><%= @transaction.errors[:amount].first %></span>
+        </div>
+      </div>
+
+      <div class="form-group <%= 'has-error' if @transaction.errors[:description].present? %>">
+        <%= form.label :description, class: "control-label col-lg-2" %>
+        <div class="col-lg-10">
+          <%= form.text_field :description, class: "form-control" %>
+          <span class="help-block"><%= @transaction.errors[:description].first %></span>
+        </div>
+      </div>
+
+      <div class="form-group <%= 'has-error' if @transaction.errors[:participants].present? %>">
+        <%= form.label :participants, class: "control-label col-lg-2" %>
+        <div class="checkbox">
+          <% @budget.members.each do |member| %>
+            <label class="col-lg-10 col-offset-2">
+              <%= check_box_tag "transaction[participant_ids][]", member.id, @transaction.participant_ids.include?(member.id) %>
+              <%= member.name %>
+            </label>
+          <% end %>
+        </div>
+        <span class="help-block col-lg-10 col-offset-2"><%= @transaction.errors[:participants].first %></span>
+      </div>
+
+    </fieldset>
+
+    <div class="form-group">
+      <div class="col-lg-10 col-offset-2">
+        <%= form.submit class: "btn btn-default" %>
+        <%= link_to "Cancel", budget_path(@budget), class: "btn btn-link" %>
+      </div>
+    </div>
+
+  <% end %>
+</div>

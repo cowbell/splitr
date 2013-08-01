@@ -1,0 +1,8 @@
+en:
+  activerecord:
+    errors:
+      models:
+        transaction:
+          attributes:
+            participants:
+              blank: "can't be empty"
