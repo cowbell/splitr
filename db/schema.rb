@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130801081056) do
+ActiveRecord::Schema.define(version: 20130805103121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,9 +47,9 @@ ActiveRecord::Schema.define(version: 20130801081056) do
   add_index "participations", ["transaction_id"], name: "index_participations_on_transaction_id", using: :btree
 
   create_table "transactions", force: true do |t|
-    t.text     "description",                         null: false
-    t.integer  "budget_id",                           null: false
-    t.decimal  "amount",      precision: 8, scale: 2, null: false
+    t.text     "description",                          null: false
+    t.integer  "budget_id",                            null: false
+    t.decimal  "amount",      precision: 16, scale: 8, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
