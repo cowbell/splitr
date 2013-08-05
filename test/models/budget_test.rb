@@ -26,10 +26,20 @@ class BudgetTest < ActiveSupport::TestCase
     member = create(:member)
     other_member = create(:member)
 
-    create(:transaction, budget: budget, amount: -20, participant_ids: [member.id, other_member.id])
-    create(:transaction, budget: budget, amount: -5, participant_ids: [other_member.id])
+    create(:transaction, budget: budget, amount: -20, participants: [member, other_member])
+    create(:transaction, budget: budget, amount: -5, participants: [other_member])
 
-    assert_equal -10, budget.total_for_member(member.id)
-    assert_equal -15, budget.total_for_member(other_member.id)
+    assert_equal -10, budget.total_for_member(member)
+    assert_equal -15, budget.total_for_member(other_member)
+  end
+
+  test "#total_for_member returns precise results" do
+    budget = create(:budget)
+    members = create_list(:member, 3, budget: budget)
+    create_list(:transaction, 9, amount: 1, budget: budget, participants: members)
+
+    assert_equal 3, budget.total_for_member(members.first)
+    assert_equal 3, budget.total_for_member(members.second)
+    assert_equal 3, budget.total_for_member(members.third)
   end
 end
