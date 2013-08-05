@@ -3,7 +3,7 @@ Splitr::Application.routes.draw do
   resource :session, only: %i[new create destroy]
   resources :budgets, only: %i[index show new create] do
     resources :members, only: %i[new create]
-    resources :transactions, only: %i[new create]
+    resources :transactions, only: %i[new create edit update destroy]
   end
   root to: "welcome#index"
 end
