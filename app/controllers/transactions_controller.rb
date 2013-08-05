@@ -14,6 +14,28 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def edit
+    authorize! :manage, Budget
+    @transaction = budget.transactions.find(params[:id])
+  end
+
+  def update
+    authorize! :manage, Budget
+    @transaction = budget.transactions.find(params[:id])
+    if @transaction.update(transaction_params)
+      redirect_to budget_path(budget), notice: "Transaction has been successfully updated."
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    authorize! :manage, Budget
+    @transaction = budget.transactions.find(params[:id])
+    @transaction.destroy
+    redirect_to budget_path(budget), notice: "Transaction has been successfully destroyed."
+  end
+
   private
 
   def budget
