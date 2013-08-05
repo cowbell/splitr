@@ -11,8 +11,6 @@ class Budget < ActiveRecord::Base
   def total_for_member(member)
     member_id = member.try(:id) || member
     member_transactions = transactions.joins(:participations).where(participations: {member_id: member_id})
-    member_transactions.reduce(0) do |sum, transaction|
-      sum += Rational(transaction.amount.to_r, transaction.participants.count)
-    end
+    member_transactions.to_a.sum { |transaction| Rational(transaction.amount.to_r, transaction.participants.count) }
   end
 end
