@@ -18,7 +18,7 @@
           <td class="text-right">
             <% if can? :manage, Budget %>
               <%= link_to "Edit", edit_budget_transaction_path(@budget, transaction), class: "btn btn-primary btn-small" %>
-              <%= link_to "Delete", budget_transaction_path(@budget, transaction), class: "btn btn-danger btn-small", method: :delete, confirm: "Are you sure?" %>
+              <%= link_to "Delete", budget_transaction_path(@budget, transaction), class: "btn btn-danger btn-small", method: :delete, data: {confirm: "Are you sure?"} %>
             <% end %>
           </td>
         </tr>
