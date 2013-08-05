@@ -5,6 +5,7 @@ class Transaction < ActiveRecord::Base
 
   validates :budget,       presence: true
   validates :description,  presence: true
+  validates :issued_on,    presence: true
   validates :amount,       presence: true, numericality: {allow_nil: true}
   validates :participants, presence: true
 end

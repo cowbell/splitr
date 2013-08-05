@@ -16,6 +16,15 @@
     </div>
   </div>
 
+  <div class="form-group <%= 'has-error' if @transaction.errors[:issued_on].present? %>">
+    <%= form.label :issued_on, class: "control-label col-lg-2" %>
+    <div class="col-lg-10">
+      <%# Change "value" to symbol on Rails 4.0.1 https://github.com/rails/rails/commit/53eb9fdd9c546b101b22e1711ed0c3dd3df19197 %>
+      <%= form.date_field :issued_on, "value" => form.object.issued_on || Date.current.to_s, class: "form-control" %>
+      <span class="help-block"><%= @transaction.errors[:issued_on].first %></span>
+    </div>
+  </div>
+
   <div class="form-group <%= 'has-error' if @transaction.errors[:participants].present? %>">
     <%= form.label :participants, class: "control-label col-lg-2" %>
     <a id="js-transaction-participants-toggle" class="col-lg-10 col-offset-2" href="#" data-all="All" data-none="None">All</a>
