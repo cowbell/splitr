@@ -3,15 +3,15 @@
     <div class="panel-heading"><strong><%= @budget.name %></strong> transactions</div>
     <table class="table table-hover .table-condensed">
       <tr>
-        <th>Date</th>
+        <th>Issued on</th>
         <th>Description</th>
         <th>Participants</th>
         <th class="text-right">Amount</th>
         <th class="text-right"></th>
       </tr>
-      <% @budget.transactions.order(created_at: :desc).each do |transaction| %>
+      <% @budget.transactions.order(issued_on: :desc).each do |transaction| %>
         <tr>
-          <td><%= transaction.created_at.to_date.to_s(:db) %></td>
+          <td><%= transaction.issued_on.to_s(:db) %></td>
           <td><%= transaction.description %></td>
           <td><%= transaction_participants(transaction) %></td>
           <td class="text-right"><%= number_to_currency(transaction.amount, unit: "¤") %></td>

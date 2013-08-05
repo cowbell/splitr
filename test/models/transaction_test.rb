@@ -15,6 +15,12 @@ class TransactionTest < ActiveSupport::TestCase
     assert @transaction.errors[:description].one?
   end
 
+  test "is invalid without issued_on" do
+    @transaction.issued_on = nil
+    assert @transaction.invalid?
+    assert @transaction.errors[:issued_on].one?
+  end
+
   test "is invalid without amount" do
     @transaction.amount = nil
     assert @transaction.invalid?
