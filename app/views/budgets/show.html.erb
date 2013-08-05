@@ -13,11 +13,11 @@
           <td><%= transaction.created_at.to_date.to_s(:db) %></td>
           <td><%= transaction.description %></td>
           <td><%= transaction_participants(transaction) %></td>
-          <td class="text-right"><%= transaction.amount %></td>
+          <td class="text-right"><%= number_to_currency(transaction.amount, unit: "¤") %></td>
         </tr>
       <% end %>
       <tr>
-        <th colspan="4" class="text-right"><%= @budget.total %></th>
+        <th colspan="4" class="text-right"><%= number_to_currency(@budget.total, unit: "¤") %></th>
       </tr>
       <% if can? :manage, @budget %>
         <tr>
@@ -32,15 +32,17 @@
     <table class="table table-hover table-condensed">
       <tr>
         <th>Name</th>
+        <th class="text-right">Total</th>
       </tr>
       <% @budget.members.order(:name).each do |member| %>
         <tr>
           <td><%= member.name %></td>
+          <td class="text-right"><%= number_to_currency(@budget.total_for_member(member), unit: "¤") %></td>
         </tr>
       <% end %>
       <% if can? :manage, @budget %>
         <tr>
-          <td><%= link_to "Add", new_budget_member_path(@budget), class: "btn btn-primary btn-small" %></td>
+          <td colspan="2"><%= link_to "Add", new_budget_member_path(@budget), class: "btn btn-primary btn-small" %></td>
         </tr>
       <% end %>
     </table>

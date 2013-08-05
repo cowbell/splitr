@@ -5,16 +5,16 @@
     <table class="table table-hover table-condensed">
       <tr>
         <th>Name</th>
-        <th>Members</th>
-        <th>Total Amount</th>
-        <th></th>
+        <th class="text-center">Members</th>
+        <th class="text-right">Total Amount</th>
+        <th class="text-right"></th>
       </tr>
       <% @budgets.order(created_at: :desc).each do |budget| %>
         <tr>
           <td><%= budget.name %></td>
-          <td><%= budget.members.count %></td>
-          <td><%= budget.total %> &euro;</td>
-          <td><%= link_to "Show", budget_path(budget), class: "btn btn-primary btn-small"%></td>
+          <td class="text-center"><%= budget.members.count %></td>
+          <td class="text-right"><%= number_to_currency(budget.total, unit: "¤") %></td>
+          <td class="text-right"><%= link_to "Show", budget_path(budget), class: "btn btn-primary btn-small"%></td>
         </tr>
       <% end %>
       <% if can? :create, Budget %>
