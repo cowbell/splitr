@@ -49,4 +49,39 @@ class MembersControllerTest < ActionController::TestCase
     assert_redirected_to budget_path(@budget)
     assert Member.where(name: "John", budget_id: @budget.id).exists?
   end
+
+  # destroy
+  test "destroy raises exception when no logged in user" do
+    member = create(:member, budget: @budget)
+    assert_raises(CanCan::AccessDenied) { delete :destroy, budget_id: @budget.id, id: member.id }
+  end
+
+  test "destroy raises exception when logged in user does not belong to budget" do
+    user = create(:user)
+    member = create(:member, budget: @budget)
+    session[:user_id] = user.id
+    assert_raises(ActiveRecord::RecordNotFound) do
+      delete :destroy, budget_id: @budget.id, id: member.id
+    end
+  end
+
+  test "destroy raises exception when member does not belong to budget" do
+    user = create(:user)
+    create(:member, budget: @budget, user: user)
+    member = create(:member)
+    session[:user_id] = user.id
+    assert_raises(ActiveRecord::RecordNotFound) do
+      delete :destroy, budget_id: @budget.id, id: member.id
+    end
+  end
+
+  test "destroy redirects to budget members and adds member when logged in user belongs to budget" do
+    user = create(:user)
+    member = create(:member, budget: @budget, user: user)
+    session[:user_id] = user.id
+    delete :destroy, budget_id: @budget.id, id: member.id
+
+    assert_redirected_to budget_path(@budget)
+    refute Member.where(id: member.id).exists?
+  end
 end

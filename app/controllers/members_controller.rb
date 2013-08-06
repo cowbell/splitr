@@ -14,6 +14,13 @@ class MembersController < ApplicationController
     end
   end
 
+  def destroy
+    authorize! :manage, Budget
+    @member = budget.members.find(params[:id])
+    @member.destroy
+    redirect_to budget_path(budget), notice: "Member has been successfully deleted."
+  end
+
   private
 
   def budget
