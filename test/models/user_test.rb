@@ -25,6 +25,13 @@ class UserTest < ActiveSupport::TestCase
     assert user.errors[:email].present?
   end
 
+  test "is invalid with duplicate uppercased email" do
+    create(:user, email: "john@doe.com")
+    @user.email = "John@Doe.com"
+    assert @user.invalid?
+    assert @user.errors[:email].present?
+  end
+
   test "is invalid without name" do
     user = build(:user, name: nil)
     assert user.invalid?
