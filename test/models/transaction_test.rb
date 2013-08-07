@@ -9,6 +9,11 @@ class TransactionTest < ActiveSupport::TestCase
     assert @transaction.save!
   end
 
+  test "saves successfully with negative amount" do
+    @transaction.amount = "-1"
+    assert @transaction.save!
+  end
+
   test "is invalid without description" do
     @transaction.description = nil
     assert @transaction.invalid?
