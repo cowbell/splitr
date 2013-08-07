@@ -19,7 +19,7 @@
           <td><%= transaction.issued_on.to_s(:db) %></td>
           <td><%= transaction.description %></td>
           <td><%= transaction_participants(transaction) %></td>
-          <td class="text-right"><%= number_to_currency(transaction.amount, unit: "¤") %></td>
+          <td class="text-right"><%= number_to_currency(transaction.amount, unit: @budget.currency) %></td>
           <td class="text-right">
             <% if can? :manage, Budget %>
               <%= link_to "", edit_budget_transaction_path(@budget, transaction), class: "btn btn-primary btn-small glyphicon glyphicon-pencil" %>
@@ -29,7 +29,7 @@
         </tr>
       <% end %>
       <tr class="<%= amount_class(@budget.total) %>">
-        <th colspan="4" class="text-right"><%= number_to_currency(@budget.total, unit: "¤") %></th>
+        <th colspan="4" class="text-right"><%= number_to_currency(@budget.total, unit: @budget.currency) %></th>
         <th></th>
       </tr>
     </table>
@@ -52,7 +52,7 @@
         <% @budget.total_for_member(member).tap do |total| %>
           <tr class="<%= amount_class(total) %>">
             <td><%= member.name %></td>
-            <td class="text-right"><%= number_to_currency(total, unit: "¤") %></td>
+            <td class="text-right"><%= number_to_currency(total, unit: @budget.currency) %></td>
             <td class="text-right">
               <% if can? :manage, @budget %>
                 <%= link_to "", budget_member_path(@budget, member), class: "btn btn-danger btn-small glyphicon glyphicon-remove", method: :delete, data: {confirm: "Are you sure?"} %>
