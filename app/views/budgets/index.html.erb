@@ -1,6 +1,11 @@
 <div class="container">
   <div class="panel">
-    <div class="panel-heading">Your budgets</div>
+    <div class="panel-heading">
+      Your budgets
+      <% if can? :create, Budget %>
+        <%= link_to "", new_budget_path, class: "btn btn-success btn-small glyphicon glyphicon-plus" %>
+      <% end %>
+    </div>
 
     <table class="table table-hover table-condensed">
       <tr>
@@ -11,21 +16,15 @@
       </tr>
       <% @budgets.order(created_at: :desc).each do |budget| %>
         <tr>
-          <td><%= budget.name %></td>
+          <td><%= link_to budget.name, budget_path(budget) %></td>
           <td class="text-center"><%= budget.members.count %></td>
-          <td class="text-right"><%= number_to_currency(budget.total, unit: "¤") %></td>
+          <td class="text-right <%= amount_class(budget.total) %>"><%= number_to_currency(budget.total, unit: "¤") %></td>
           <td class="text-right">
-            <%= link_to "Show", budget_path(budget), class: "btn btn-primary btn-small"%>
             <% if can? :manage, Budget %>
-              <%= link_to "Edit", edit_budget_path(budget), class: "btn btn-primary btn-small" %>
-              <%= link_to "Delete", budget_path(budget), class: "btn btn-danger btn-small", method: :delete, data: {confirm: "Are you sure?"} %>
+              <%= link_to "", edit_budget_path(budget), class: "btn btn-primary btn-small glyphicon glyphicon-pencil" %>
+              <%= link_to "", budget_path(budget), class: "btn btn-danger btn-small glyphicon glyphicon-remove", method: :delete, data: {confirm: "Are you sure?"} %>
             <% end %>
           </td>
-        </tr>
-      <% end %>
-      <% if can? :create, Budget %>
-        <tr>
-          <td colspan="4"><%= link_to "Add", new_budget_path, class: "btn btn-primary btn-small" %></td>
         </tr>
       <% end %>
     </table>

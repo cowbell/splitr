@@ -1,6 +1,11 @@
 <div class="container">
   <div class="panel">
-    <div class="panel-heading"><strong><%= @budget.name %></strong> transactions</div>
+    <div class="panel-heading">
+      <strong><%= @budget.name %></strong> transactions
+      <% if can? :manage, @budget %>
+        <%= link_to "", new_budget_transaction_path(@budget), class: "btn btn-success btn-small glyphicon glyphicon-plus" %>
+      <% end %>
+    </div>
     <table class="table table-hover .table-condensed">
       <tr>
         <th>Issued on</th>
@@ -17,8 +22,8 @@
           <td class="text-right"><%= number_to_currency(transaction.amount, unit: "¤") %></td>
           <td class="text-right">
             <% if can? :manage, Budget %>
-              <%= link_to "Edit", edit_budget_transaction_path(@budget, transaction), class: "btn btn-primary btn-small" %>
-              <%= link_to "Delete", budget_transaction_path(@budget, transaction), class: "btn btn-danger btn-small", method: :delete, data: {confirm: "Are you sure?"} %>
+              <%= link_to "", edit_budget_transaction_path(@budget, transaction), class: "btn btn-primary btn-small glyphicon glyphicon-pencil" %>
+              <%= link_to "", budget_transaction_path(@budget, transaction), class: "btn btn-danger btn-small glyphicon glyphicon-remove", method: :delete, data: {confirm: "Are you sure?"} %>
             <% end %>
           </td>
         </tr>
@@ -27,16 +32,16 @@
         <th colspan="4" class="text-right"><%= number_to_currency(@budget.total, unit: "¤") %></th>
         <th></th>
       </tr>
-      <% if can? :manage, @budget %>
-        <tr>
-          <td colspan="5"><%= link_to "Add", new_budget_transaction_path(@budget), class: "btn btn-primary btn-small" %></td>
-        </tr>
-      <% end %>
     </table>
   </div>
 
   <div class="panel">
-    <div class="panel-heading"><strong><%= @budget.name %></strong> members</div>
+    <div class="panel-heading">
+      <strong><%= @budget.name %></strong> members
+      <% if can? :manage, @budget %>
+        <%= link_to "", new_budget_member_path(@budget), class: "btn btn-success btn-small glyphicon glyphicon-plus" %>
+      <% end %>
+    </div>
     <table class="table table-hover table-condensed">
       <tr>
         <th>Name</th>
@@ -50,16 +55,11 @@
             <td class="text-right"><%= number_to_currency(total, unit: "¤") %></td>
             <td class="text-right">
               <% if can? :manage, @budget %>
-                <%= link_to "Delete", budget_member_path(@budget, member), class: "btn btn-danger btn-small", method: :delete, data: {confirm: "Are you sure?"} %>
+                <%= link_to "", budget_member_path(@budget, member), class: "btn btn-danger btn-small glyphicon glyphicon-remove", method: :delete, data: {confirm: "Are you sure?"} %>
               <% end %>
             </td>
           </tr>
         <% end %>
-      <% end %>
-      <% if can? :manage, @budget %>
-        <tr>
-          <td colspan="3"><%= link_to "Add", new_budget_member_path(@budget), class: "btn btn-primary btn-small" %></td>
-        </tr>
       <% end %>
     </table>
   </div>
