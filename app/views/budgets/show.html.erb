@@ -10,7 +10,7 @@
         <th class="text-right"></th>
       </tr>
       <% @budget.transactions.order(issued_on: :desc).each do |transaction| %>
-        <tr>
+        <tr class="<%= amount_class(transaction.amount) %>">
           <td><%= transaction.issued_on.to_s(:db) %></td>
           <td><%= transaction.description %></td>
           <td><%= transaction_participants(transaction) %></td>
@@ -23,7 +23,7 @@
           </td>
         </tr>
       <% end %>
-      <tr>
+      <tr class="<%= amount_class(@budget.total) %>">
         <th colspan="4" class="text-right"><%= number_to_currency(@budget.total, unit: "¤") %></th>
         <th></th>
       </tr>
@@ -44,15 +44,17 @@
         <th></th>
       </tr>
       <% @budget.members.order(:name).each do |member| %>
-        <tr>
-          <td><%= member.name %></td>
-          <td class="text-right"><%= number_to_currency(@budget.total_for_member(member), unit: "¤") %></td>
-          <td class="text-right">
-            <% if can? :manage, @budget %>
-              <%= link_to "Delete", budget_member_path(@budget, member), class: "btn btn-danger btn-small", method: :delete, data: {confirm: "Are you sure?"} %>
-            <% end %>
-          </td>
-        </tr>
+        <% @budget.total_for_member(member).tap do |total| %>
+          <tr class="<%= amount_class(total) %>">
+            <td><%= member.name %></td>
+            <td class="text-right"><%= number_to_currency(total, unit: "¤") %></td>
+            <td class="text-right">
+              <% if can? :manage, @budget %>
+                <%= link_to "Delete", budget_member_path(@budget, member), class: "btn btn-danger btn-small", method: :delete, data: {confirm: "Are you sure?"} %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
       <% if can? :manage, @budget %>
         <tr>
