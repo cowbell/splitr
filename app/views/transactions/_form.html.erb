@@ -35,13 +35,15 @@
 
   <div class="form-group <%= 'has-error' if @transaction.errors[:participants].present? %>">
     <%= form.label :participants, class: "control-label col-lg-2" %>
-    <a id="js-transaction-participants-toggle" class="col-lg-10 col-offset-2" href="#" data-all="All" data-none="None">All</a>
-    <div id="js-transaction-participants" class="checkbox">
+    <div class="col-lg-10">
+      <a id="js-transaction-participants-toggle" class="btn btn-default" href="javascript:void(0)" data-all="All" data-none="None">All</a>
       <% @budget.members.each do |member| %>
-        <label class="col-lg-10 col-offset-2">
-          <%= check_box_tag "transaction[participant_ids][]", member.id, @transaction.participant_ids.include?(member.id) %>
-          <%= member.name %>
-        </label>
+        <div id="js-transaction-participants" class="checkbox">
+          <label>
+            <%= check_box_tag "transaction[participant_ids][]", member.id, @transaction.participant_ids.include?(member.id) %>
+            <%= member.name %>
+          </label>
+        </div>
       <% end %>
     </div>
     <span class="help-block col-lg-10 col-offset-2"><%= @transaction.errors[:participants].first %></span>
