@@ -1,5 +1,7 @@
 <fieldset>
 
+  <legend>Transaction</legend>
+
   <div class="form-group <%= 'has-error' if @transaction.errors[:amount].present? %>">
     <%= form.label :amount, class: "control-label col-lg-2" %>
     <div class="col-lg-10">

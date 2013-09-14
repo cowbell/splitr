@@ -32,6 +32,12 @@ class TransactionTest < ActiveSupport::TestCase
     assert @transaction.errors[:amount].one?
   end
 
+  test "is invalid with 0 amount" do
+    @transaction.amount = 0
+    assert @transaction.invalid?
+    assert @transaction.errors[:amount].one?
+  end
+
   test "is invalid with not numerical amount" do
     @transaction.amount = "1$"
     assert @transaction.invalid?

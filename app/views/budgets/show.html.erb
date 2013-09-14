@@ -10,6 +10,7 @@
       <tr>
         <th>Issued on</th>
         <th>Description</th>
+        <th>Payer</th>
         <th>Participants</th>
         <th class="text-right">Amount</th>
         <th class="text-right"></th>
@@ -18,6 +19,7 @@
         <tr class="<%= amount_class(transaction.amount) %>">
           <td><%= transaction.issued_on.to_s(:db) %></td>
           <td><%= transaction.description %></td>
+          <td><%= transaction.payer_name %></td>
           <td><%= transaction_participants(transaction) %></td>
           <td class="text-right"><%= number_to_currency(transaction.amount, unit: @budget.currency) %></td>
           <td class="text-right">

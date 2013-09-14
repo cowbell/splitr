@@ -1,9 +1,10 @@
 <div class="container">
-  <h2>New Member</h2>
 
   <%= form_for [@budget, @member], html: {class: "form-horizontal"} do |form| %>
 
     <fieldset>
+
+      <legend>Member</legend>
 
       <div class="form-group <%= 'has-error' if @member.errors[:name].present? %>">
         <%= form.label :name, class: "control-label col-lg-2" %>
@@ -18,7 +19,6 @@
     <div class="form-group">
       <div class="col-lg-10 col-offset-2">
         <%= form.submit class: "btn btn-default" %>
-        <%= link_to "Cancel", budget_path(@budget), class: "btn btn-link" %>
       </div>
     </div>
 

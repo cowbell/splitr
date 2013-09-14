@@ -1,5 +1,4 @@
 <div class="container">
-  <h2>Edit Budget</h2>
 
   <%= form_for @budget, html: {class: "form-horizontal"} do |form| %>
 
@@ -8,7 +7,6 @@
     <div class="form-group">
       <div class="col-lg-10 col-offset-2">
         <%= form.submit class: "btn btn-default" %>
-        <%= link_to "Cancel", root_path, class: "btn btn-link" %>
       </div>
     </div>
 
