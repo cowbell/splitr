@@ -49,4 +49,16 @@ class TransactionTest < ActiveSupport::TestCase
     assert @transaction.invalid?
     assert @transaction.errors[:participants].one?
   end
+
+  test "is invalid when payer does not belong to budget" do
+    @transaction.payer = create(:member)
+    assert @transaction.invalid?
+    assert @transaction.errors[:payer_id].one?
+  end
+
+  test "is valid when payer belongs to budget" do
+    @transaction.save!
+    @transaction.payer = create(:member, budget: @transaction.budget)
+    assert @transaction.valid?
+  end
 end

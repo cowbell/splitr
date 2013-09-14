@@ -4,4 +4,10 @@ class Participation < ActiveRecord::Base
 
   validates :transaction, presence: true
   validates :member,      presence: true, uniqueness: {scope: :transaction_id, allow_nil: true}
+  validate :member_belongs_to_budget
+
+  def member_belongs_to_budget
+    return unless transaction_id? and member_id?
+    errors.add :member_id, :invalid unless transaction.budget.members.include?(member)
+  end
 end

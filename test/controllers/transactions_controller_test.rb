@@ -55,23 +55,6 @@ class TransactionsControllerTest < ActionController::TestCase
     assert Transaction.where(description: "4xBeer", budget_id: @budget.id).exists?
   end
 
-  test "create does not allow to assign participants outside budget" do
-    user = create(:user)
-    member = create(:member, budget: @budget, user: user)
-    session[:user_id] = user.id
-    member_outside_budget = create(:member, user: user)
-    transaction_params = attributes_for(:transaction,
-      budget: @budget,
-      description: "4xBeer",
-      participant_ids: [member.id, member_outside_budget.id]
-    )
-    post :create, budget_id: @budget.id, transaction: transaction_params
-
-    assert_redirected_to budget_path(@budget)
-    transaction = Transaction.find_by(description: "4xBeer", budget_id: @budget.id)
-    assert_equal [member], transaction.participants
-  end
-
   # edit
   test "edit raises exception when no logged in user" do
     transaction = create(:transaction, budget: @budget)
@@ -147,24 +130,6 @@ class TransactionsControllerTest < ActionController::TestCase
 
     assert_redirected_to budget_path(@budget)
     assert Transaction.where(description: "4xBeer", budget_id: @budget.id).exists?
-  end
-
-  test "update does not allow to assign participants from outside budget" do
-    user = create(:user)
-    member = create(:member, budget: @budget, user: user)
-    session[:user_id] = user.id
-    member_outside_budget = create(:member, user: user)
-    transaction = create(:transaction, budget: @budget)
-    transaction_params = attributes_for(:transaction,
-      budget: @budget,
-      description: "4xBeer",
-      participant_ids: [member.id, member_outside_budget.id]
-    )
-    put :update, budget_id: @budget.id, transaction: transaction_params, id: transaction.id
-
-    assert_redirected_to budget_path(@budget)
-    transaction = Transaction.find_by(description: "4xBeer", budget_id: @budget.id)
-    assert_equal [member], transaction.participants
   end
 
   # destroy

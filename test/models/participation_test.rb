@@ -26,4 +26,10 @@ class ParticipationTest < ActiveSupport::TestCase
     assert @participation.invalid?
     assert @participation.errors[:member].one?
   end
+
+  test "is invalid when member does not belong to budget" do
+    @participation.member = create(:member)
+    assert @participation.invalid?
+    assert @participation.errors[:member_id].one?
+  end
 end

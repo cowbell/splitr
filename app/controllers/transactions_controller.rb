@@ -43,8 +43,6 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    @transaction_params ||= params.require(:transaction).permit(:description, :issued_on, :amount, participant_ids: []).tap do |params|
-      params[:participant_ids] = (params[:participant_ids] || []).map(&:to_i) & budget.members.pluck(:id)
-    end
+    params.require(:transaction).permit(:description, :issued_on, :amount, :payer_id, participant_ids: [])
   end
 end

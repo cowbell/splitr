@@ -23,8 +23,8 @@ class BudgetTest < ActiveSupport::TestCase
 
   test "#total_for_member returns sum of transaction amounts in which member participates" do
     budget = create(:budget)
-    member = create(:member)
-    other_member = create(:member)
+    member = create(:member, budget: budget)
+    other_member = create(:member, budget: budget)
 
     create(:transaction, budget: budget, amount: -20, participants: [member, other_member])
     create(:transaction, budget: budget, amount: -5, participants: [other_member])
