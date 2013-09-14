@@ -16,10 +16,11 @@
       </tr>
       <% @budgets.order(created_at: :desc).each do |budget| %>
         <tr>
-          <td><%= link_to budget.name, budget_path(budget) %></td>
+          <td><%= budget.name %></td>
           <td class="text-center"><%= budget.members.count %></td>
           <td class="text-right <%= amount_class(budget.total) %>"><%= number_to_currency(budget.total, unit: budget.currency) %></td>
           <td class="text-right">
+            <%= link_to "", budget_path(budget), class: "btn btn-primary btn-small glyphicon glyphicon-eye-open" %>
             <% if can? :manage, Budget %>
               <%= link_to "", edit_budget_path(budget), class: "btn btn-primary btn-small glyphicon glyphicon-pencil" %>
               <%= link_to "", budget_path(budget), class: "btn btn-danger btn-small glyphicon glyphicon-remove", method: :delete, data: {confirm: "Are you sure?"} %>

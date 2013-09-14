@@ -31,7 +31,7 @@
         </tr>
       <% end %>
       <tr class="<%= amount_class(@budget.total) %>">
-        <th colspan="4" class="text-right"><%= number_to_currency(@budget.total, unit: @budget.currency) %></th>
+        <th colspan="5" class="text-right"><%= number_to_currency(@budget.total, unit: @budget.currency) %></th>
         <th></th>
       </tr>
     </table>
