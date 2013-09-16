@@ -5,7 +5,7 @@
   <div class="form-group <%= 'has-error' if @transaction.errors[:amount].present? %>">
     <%= form.label :amount, class: "control-label col-lg-2" %>
     <div class="col-lg-10">
-      <%= form.number_field :amount, step: "any", class: "form-control" %>
+      <%= form.number_field :amount, class: "form-control", value: @transaction.amount %>
       <span class="help-block"><%= @transaction.errors[:amount].first %></span>
     </div>
   </div>

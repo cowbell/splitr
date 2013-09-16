@@ -18,4 +18,12 @@
     </div>
   </div>
 
+  <div class="form-group <%= 'has-error' if @budget.errors[:precision].present? %>">
+    <%= form.label :precision, class: "control-label col-lg-2" %>
+    <div class="col-lg-1">
+      <%= form.number_field :precision, class: "form-control", value: @budget.precision || 2, min: 0, step: 1 %>
+      <span class="help-block"><%= @budget.errors[:precision].first %></span>
+    </div>
+  </div>
+
 </fieldset>

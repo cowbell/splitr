@@ -15,6 +15,18 @@ class BudgetTest < ActiveSupport::TestCase
     assert budget.errors[:name].present?
   end
 
+  test "is invalid without precision" do
+    budget = build(:budget, precision: nil)
+    assert budget.invalid?
+    assert budget.errors[:precision].present?
+  end
+
+  test "is invalid with negative precision" do
+    budget = build(:budget, precision: -1)
+    assert budget.invalid?
+    assert budget.errors[:precision].present?
+  end
+
   test "#total returns sum of transaction amounts" do
     budget = create(:budget)
     create_list(:transaction, 3, budget: budget, amount: 100)
