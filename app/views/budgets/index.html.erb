@@ -18,7 +18,7 @@
         <tr>
           <td><%= budget.name %></td>
           <td class="text-center"><%= budget.members.count %></td>
-          <td class="text-right <%= amount_class(budget.total) %>"><%= number_to_currency(budget.total, unit: budget.currency, precision: budget.precision) %></td>
+          <td class="text-right <%= amount_class(budget.total) %>"><%= number_to_currency(budget.total, unit: budget.currency, precision: budget.precision, locale: budget.locale) %></td>
           <td class="text-right">
             <%= link_to "", budget_path(budget), class: "btn btn-primary btn-small glyphicon glyphicon-eye-open" %>
             <% if can? :manage, Budget %>

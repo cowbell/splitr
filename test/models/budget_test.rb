@@ -27,6 +27,12 @@ class BudgetTest < ActiveSupport::TestCase
     assert budget.errors[:precision].present?
   end
 
+  test "is invalid without locale" do
+    budget = build(:budget, locale: nil)
+    assert budget.invalid?
+    assert budget.errors[:locale].present?
+  end
+
   test "#total returns sum of transaction amounts" do
     budget = create(:budget)
     create_list(:transaction, 3, budget: budget, amount: 100)

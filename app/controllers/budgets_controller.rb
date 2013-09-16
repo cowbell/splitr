@@ -49,6 +49,6 @@ class BudgetsController < ApplicationController
   private
 
   def budget_params
-    params.require(:budget).permit(:name, :currency, :precision)
+    params.require(:budget).permit(:name, :currency, :precision, :locale)
   end
 end
