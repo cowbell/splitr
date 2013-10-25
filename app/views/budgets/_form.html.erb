@@ -12,26 +12,89 @@
 
   <div class="form-group <%= 'has-error' if @budget.errors[:currency].present? %>">
     <%= form.label :currency, class: "control-label col-lg-2" %>
-    <div class="col-lg-2">
-      <%= form.text_field :currency, class: "form-control" %>
+    <div class="col-lg-10">
+      <div class="row">
+        <div class="col-lg-2">
+          <%= form.text_field :currency, class: "form-control" %>
+        </div>
+      </div>
       <span class="help-block"><%= @budget.errors[:currency].first %></span>
     </div>
   </div>
 
-  <div class="form-group <%= 'has-error' if @budget.errors[:precision].present? %>">
-    <%= form.label :precision, class: "control-label col-lg-2" %>
-    <div class="col-lg-2">
-      <%= form.number_field :precision, class: "form-control", value: @budget.precision || 2, min: 0, step: 1 %>
-      <span class="help-block"><%= @budget.errors[:precision].first %></span>
+  <div class="form-group">
+    <div class="col-lg-10 col-offset-2">
+      <button type="button" class="btn btn-default" data-toggle="collapse" data-target=".advanced">Advanced Settings</button>
     </div>
   </div>
 
-  <div class="form-group <%= 'has-error' if @budget.errors[:locale].present? %>">
-    <%= form.label :locale, class: "control-label col-lg-2" %>
-    <div class="col-lg-2">
-      <%= form.select :locale, I18n.available_locales, {prompt: "Select locale"}, class: "form-control" %>
-      <span class="help-block"><%= @budget.errors[:locale].first %></span>
+  <div class="advanced collapse">
+
+    <div class="form-group <%= 'has-error' if @budget.errors[:precision].present? %>">
+      <%= form.label :precision, class: "control-label col-lg-2" %>
+      <div class="col-lg-10">
+        <div class="row">
+          <div class="col-lg-2">
+            <%= form.number_field :precision, class: "form-control", value: @budget.precision || 2, min: 0, step: 1 %>
+          </div>
+        </div>
+        <span class="help-block">Number of decimal places (default: 2)</span>
+        <span class="help-block"><%= @budget.errors[:precision].first %></span>
+      </div>
     </div>
+
+    <div class="form-group <%= 'has-error' if @budget.errors[:separator].present? %>">
+      <%= form.label :separator, class: "control-label col-lg-2" %>
+      <div class="col-lg-10">
+        <div class="row">
+          <div class="col-lg-2">
+            <%= form.text_field :separator, class: "form-control" %>
+          </div>
+        </div>
+        <span class="help-block">Separator between dollars and cents (default: <code>.</code>)</span>
+        <span class="help-block"><%= @budget.errors[:separator].first %></span>
+      </div>
+    </div>
+
+    <div class="form-group <%= 'has-error' if @budget.errors[:delimiter].present? %>">
+      <%= form.label :delimiter, class: "control-label col-lg-2" %>
+      <div class="col-lg-10">
+        <div class="row">
+          <div class="col-lg-2">
+            <%= form.text_field :delimiter, class: "form-control" %>
+          </div>
+        </div>
+        <span class="help-block">Delimiter between thousands (default: <code>,</code>)</span>
+        <span class="help-block"><%= @budget.errors[:delimiter].first %></span>
+      </div>
+    </div>
+
+    <div class="form-group <%= 'has-error' if @budget.errors[:format].present? %>">
+      <%= form.label :format, class: "control-label col-lg-2" %>
+      <div class="col-lg-10">
+        <div class="row">
+          <div class="col-lg-2">
+            <%= form.text_field :format, class: "form-control" %>
+          </div>
+        </div>
+        <span class="help-block">Format for non-negative numbers (default: <code>%u%n</code>). Fields are <code>%u</code> for the currency, and <code>%n</code> for the number.</span>
+        <span class="help-block"><%= @budget.errors[:format].first %></span>
+      </div>
+    </div>
+
+    <div class="form-group <%= 'has-error' if @budget.errors[:negative_format].present? %>">
+      <%= form.label :negative_format, class: "control-label col-lg-2" %>
+      <div class="col-lg-10">
+        <div class="row">
+          <div class="col-lg-2">
+            <%= form.text_field :negative_format, class: "form-control" %>
+          </div>
+        </div>
+        <span class="help-block">Format for negative numbers (default: prepending an hyphen to the formatted number given by format). Fields are <code>%u</code> for the currency, and <code>%n</code> for the absolute value of number.</span>
+        <span class="help-block"><%= @budget.errors[:negative_format].first %></span>
+      </div>
+    </div>
+
   </div>
 
 </fieldset>

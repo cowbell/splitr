@@ -12,7 +12,6 @@ gem "coffee-rails"
 gem "jquery-rails"
 gem "turbolinks"
 gem "uglifier"
-gem "rails-i18n"
 
 group :production do
   gem "rails_12factor" # Heroku
