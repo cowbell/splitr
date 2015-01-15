@@ -1,9 +1,8 @@
 class Member < ActiveRecord::Base
   belongs_to :user
   belongs_to :budget
-  has_many :participations, inverse_of: :member, dependent: :destroy
-  has_many :money_transactions, through: :participations, source: :money_transaction
-  has_many :money_transactions, inverse_of: :payer, foreign_key: :payer_id, dependent: :nullify
+  has_many :participations, dependent: :destroy
+  has_many :money_transactions, through: :participations, dependent: :nullify
 
   validates :name,   presence: true, uniqueness: {scope: :budget_id}
   validates :budget, presence: true

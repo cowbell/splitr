@@ -1,6 +1,6 @@
 class Participation < ActiveRecord::Base
-  belongs_to :money_transaction, inverse_of: :participations
-  belongs_to :member, inverse_of: :participations
+  belongs_to :money_transaction
+  belongs_to :member
 
   validates :money_transaction, presence: true
   validates :member,      presence: true, uniqueness: {scope: :money_transaction_id, allow_nil: true}
