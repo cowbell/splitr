@@ -1,11 +1,11 @@
 source "https://rubygems.org"
 
-ruby "2.0.0"
+ruby "2.2.0"
 
-gem "rails", "4.0.0"
+gem "rails", ">= 4.2.0"
 
 gem "pg"
-gem "bcrypt-ruby", "~> 3.0.0"
+gem "bcrypt-ruby", ">= 3.0.0"
 gem "cancan"
 
 gem "coffee-rails"
@@ -29,5 +29,6 @@ group :test do
 end
 
 group :development, :test do
-  gem "debugger"
+  gem "spring"
+  gem "byebug"
 end
