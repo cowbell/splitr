@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :participation do
-    transaction
-    member { FactoryGirl.create(:member, budget: transaction.budget) }
+    money_transaction
+    member { FactoryGirl.create(:member, budget: money_transaction.budget) }
   end
 end

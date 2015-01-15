@@ -16,7 +16,7 @@
         <% end %>
       </th>
     </tr>
-    <% @budget.transactions.order(issued_on: :desc).each do |transaction| %>
+    <% @budget.money_transactions.order(issued_on: :desc).each do |transaction| %>
       <tr class="<%= amount_class(transaction.amount) %>">
         <td><%= transaction.issued_on.to_s(:db) %></td>
         <td><%= transaction.description %></td>

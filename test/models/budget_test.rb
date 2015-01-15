@@ -27,15 +27,9 @@ class BudgetTest < ActiveSupport::TestCase
     assert budget.errors[:precision].present?
   end
 
-  test "is invalid without locale" do
-    budget = build(:budget, locale: nil)
-    assert budget.invalid?
-    assert budget.errors[:locale].present?
-  end
-
   test "#total returns sum of transaction amounts" do
     budget = create(:budget)
-    create_list(:transaction, 3, budget: budget, amount: 100)
+    create_list(:money_transaction, 3, budget: budget, amount: 100)
     assert_equal 300, budget.total
   end
 
@@ -44,20 +38,20 @@ class BudgetTest < ActiveSupport::TestCase
     member = create(:member, budget: budget)
     other_member = create(:member, budget: budget)
 
-    create(:transaction, budget: budget, amount: -20, participants: [member, other_member])
-    create(:transaction, budget: budget, amount: -5, participants: [other_member])
+    create(:money_transaction, budget: budget, amount: -20, participants: [member, other_member])
+    create(:money_transaction, budget: budget, amount: -5, participants: [other_member])
 
     assert_equal -10, budget.total_for_member(member)
     assert_equal -15, budget.total_for_member(other_member)
   end
 
-  test "#total_for_member returns sum of transaction amounts in which member pays" do
+  test "#total_for_member returns sum of money_transaction amounts in which member pays" do
     budget = create(:budget)
     member = create(:member, budget: budget)
     other_member = create(:member, budget: budget)
 
-    create(:transaction, budget: budget, amount: -20, participants: [member, other_member], payer: member)
-    create(:transaction, budget: budget, amount: -5, participants: [other_member], payer: member)
+    create(:money_transaction, budget: budget, amount: -20, participants: [member, other_member], payer: member)
+    create(:money_transaction, budget: budget, amount: -5, participants: [other_member], payer: member)
 
     assert_equal 15, budget.total_for_member(member)
     assert_equal -15, budget.total_for_member(other_member)
@@ -66,7 +60,7 @@ class BudgetTest < ActiveSupport::TestCase
   test "#total_for_member returns precise results" do
     budget = create(:budget)
     members = create_list(:member, 3, budget: budget)
-    create_list(:transaction, 9, amount: 1, budget: budget, participants: members)
+    create_list(:money_transaction, 9, amount: 1, budget: budget, participants: members)
 
     assert_equal 3, budget.total_for_member(members.first)
     assert_equal 3, budget.total_for_member(members.second)

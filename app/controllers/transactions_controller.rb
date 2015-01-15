@@ -1,12 +1,13 @@
 class TransactionsController < ApplicationController
   def new
     authorize! :manage, Budget
-    @transaction = budget.transactions.build
+    @transaction = budget.money_transactions.build
   end
 
   def create
     authorize! :manage, Budget
-    @transaction = budget.transactions.build(transaction_params)
+
+    @transaction = budget.money_transactions.build(transaction_params)
     if @transaction.save
       redirect_to budget_path(budget), notice: "Transaction has been successfully added."
     else
@@ -16,12 +17,12 @@ class TransactionsController < ApplicationController
 
   def edit
     authorize! :manage, Budget
-    @transaction = budget.transactions.find(params[:id])
+    @transaction = budget.money_transactions.find(params[:id])
   end
 
   def update
     authorize! :manage, Budget
-    @transaction = budget.transactions.find(params[:id])
+    @transaction = budget.money_transactions.find(params[:id])
     if @transaction.update(transaction_params)
       redirect_to budget_path(budget), notice: "Transaction has been successfully updated."
     else
@@ -31,7 +32,7 @@ class TransactionsController < ApplicationController
 
   def destroy
     authorize! :manage, Budget
-    @transaction = budget.transactions.find(params[:id])
+    @transaction = budget.money_transactions.find(params[:id])
     @transaction.destroy
     redirect_to budget_path(budget), notice: "Transaction has been successfully destroyed."
   end
@@ -43,6 +44,6 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    params.require(:transaction).permit(:description, :issued_on, :amount, :payer_id, participant_ids: [])
+    params.require(:money_transaction).permit(:description, :issued_on, :amount, :payer_id, participant_ids: [])
   end
 end

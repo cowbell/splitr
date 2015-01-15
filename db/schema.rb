@@ -11,27 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131025081518) do
+ActiveRecord::Schema.define(version: 20150115163751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "budgets", force: true do |t|
-    t.string   "name"
+    t.string   "name",            limit: nil
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "currency",        default: ""
+    t.string   "currency",        limit: nil, default: ""
     t.integer  "precision"
-    t.string   "separator"
-    t.string   "delimiter"
-    t.string   "format"
-    t.string   "negative_format"
+    t.string   "separator",       limit: nil
+    t.string   "delimiter",       limit: nil
+    t.string   "format",          limit: nil
+    t.string   "negative_format", limit: nil
   end
 
   create_table "members", force: true do |t|
     t.integer  "user_id"
-    t.integer  "budget_id",  null: false
-    t.string   "name",       null: false
+    t.integer  "budget_id",              null: false
+    t.string   "name",       limit: nil, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -41,18 +41,7 @@ ActiveRecord::Schema.define(version: 20131025081518) do
   add_index "members", ["user_id", "budget_id"], name: "index_members_on_user_id_and_budget_id", unique: true, using: :btree
   add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
 
-  create_table "participations", force: true do |t|
-    t.integer  "transaction_id"
-    t.integer  "member_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "participations", ["member_id"], name: "index_participations_on_member_id", using: :btree
-  add_index "participations", ["transaction_id", "member_id"], name: "index_participations_on_transaction_id_and_member_id", unique: true, using: :btree
-  add_index "participations", ["transaction_id"], name: "index_participations_on_transaction_id", using: :btree
-
-  create_table "transactions", force: true do |t|
+  create_table "money_transactions", force: true do |t|
     t.text     "description",                          null: false
     t.integer  "budget_id",                            null: false
     t.decimal  "amount",      precision: 16, scale: 8, null: false
@@ -62,12 +51,23 @@ ActiveRecord::Schema.define(version: 20131025081518) do
     t.integer  "payer_id"
   end
 
-  add_index "transactions", ["budget_id"], name: "index_transactions_on_budget_id", using: :btree
+  add_index "money_transactions", ["budget_id"], name: "index_money_transactions_on_budget_id", using: :btree
+
+  create_table "participations", force: true do |t|
+    t.integer  "money_transaction_id"
+    t.integer  "member_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "participations", ["member_id"], name: "index_participations_on_member_id", using: :btree
+  add_index "participations", ["money_transaction_id", "member_id"], name: "index_participations_on_money_transaction_id_and_member_id", unique: true, using: :btree
+  add_index "participations", ["money_transaction_id"], name: "index_participations_on_money_transaction_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password_digest"
+    t.string   "name",            limit: nil
+    t.string   "email",           limit: nil
+    t.string   "password_digest", limit: nil
     t.datetime "created_at"
     t.datetime "updated_at"
   end

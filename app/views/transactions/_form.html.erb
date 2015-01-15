@@ -42,7 +42,7 @@
       <% @budget.members.each do |member| %>
         <div id="js-transaction-participants" class="checkbox">
           <label>
-            <%= check_box_tag "transaction[participant_ids][]", member.id, @transaction.participant_ids.include?(member.id) %>
+            <%= check_box_tag "money_transaction[participant_ids][]", member.id, @transaction.participant_ids.include?(member.id) %>
             <%= member.name %>
           </label>
         </div>

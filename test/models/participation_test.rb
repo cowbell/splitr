@@ -16,13 +16,13 @@ class ParticipationTest < ActiveSupport::TestCase
   end
 
   test "is invalid without transaction" do
-    @participation.transaction = nil
+    @participation.money_transaction = nil
     assert @participation.invalid?
-    assert @participation.errors[:transaction].one?
+    assert @participation.errors[:money_transaction].one?
   end
 
   test "is invalid with same member within one transaction" do
-    create(:participation, member: @participation.member, transaction: @participation.transaction)
+    create(:participation, member: @participation.member, money_transaction: @participation.money_transaction)
     assert @participation.invalid?
     assert @participation.errors[:member].one?
   end

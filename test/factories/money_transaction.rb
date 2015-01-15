@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :transaction do
+  factory :money_transaction do
     budget
     amount 10.5
     issued_on { Date.current }

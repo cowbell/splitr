@@ -1,7 +1,7 @@
-class Transaction < ActiveRecord::Base
+class MoneyTransaction < ActiveRecord::Base
   belongs_to :budget
   belongs_to :payer, class_name: "Member"
-  has_many :participations, inverse_of: :transaction, dependent: :destroy
+  has_many :participations, inverse_of: :money_transaction, dependent: :destroy
   has_many :participants, through: :participations, source: :member
 
   validates :budget,       presence: true
@@ -16,6 +16,6 @@ class Transaction < ActiveRecord::Base
   end
 
   def payer_name
-    payer.try(:name).presence or "None"
+    payer.try!(:name).presence or "None"
   end
 end

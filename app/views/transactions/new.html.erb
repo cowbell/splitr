@@ -1,5 +1,5 @@
 <div class="container">
-  <%= form_for [@budget, @transaction], html: {class: "form-horizontal"} do |form| %>
+  <%= form_for [@budget, @transaction], url: budget_transactions_path(@budget), html: {class: "form-horizontal"} do |form| %>
 
     <%= render "form", form: form %>
 
