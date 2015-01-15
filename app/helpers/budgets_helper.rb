@@ -13,6 +13,6 @@ module BudgetsHelper
       negative_format: budget.negative_format
     }
 
-    number_to_currency(number, options.select { |key, value| value.present? or value != "" })
+    number_to_currency(number, options.select { |key, value| value.present? })
   end
 end
