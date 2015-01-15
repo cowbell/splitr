@@ -5,3 +5,5 @@
 #= require turbolinks
 
 #= require transactions
+
+Turbolinks.enableProgressBar()
